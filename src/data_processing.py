@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 
-# Caminho baseado na estrutura do repositório
-DATA_DIR = "../data/raw/g20gli_dataset"
+# Caminho corrigido (sem o ../ no início)
+DATA_DIR = "data/raw/g20gli_dataset"
 
 def extrair_caracteristicas_visuais():
     dados = []
@@ -18,7 +18,12 @@ def extrair_caracteristicas_visuais():
         
         print(f"Extraindo dados da pasta: {categoria}...")
         
-        # Varre as imagens contidas no diretório do Kaggle
+        # Verifica se a pasta existe antes de tentar ler
+        if not os.path.exists(pasta_alvo):
+            print(f"AVISO: A pasta {pasta_alvo} não foi encontrada. Colocaste as imagens no sítio certo?")
+            continue
+
+        # Varre as imagens contidas no diretório
         for arquivo in os.listdir(pasta_alvo):
             if arquivo.lower().endswith(('.png', '.jpg', '.jpeg', '.tif')):
                 caminho_completo = os.path.join(pasta_alvo, arquivo)
@@ -60,10 +65,13 @@ def extrair_caracteristicas_visuais():
 # Executa o processamento estruturado
 df_caracteristicas = extrair_caracteristicas_visuais()
 
-# Garante a criação do diretório processed exigido
-os.makedirs("../data/processed", exist_ok=True)
+# Garante a criação do diretório processed exigido (caminho corrigido)
+os.makedirs("data/processed", exist_ok=True)
 
-# Salva a tabela final convertida
-df_caracteristicas.to_csv("../data/processed/atributos_g20gli.csv", index=False)
-print("\n[SUCESSO] Planilha contruída em data/processed/atributos_g20gli.csv!")
-print(f"Formato gerado para os modelos: {df_caracteristicas.shape}")
+# Salva a tabela final convertida (caminho corrigido)
+if not df_caracteristicas.empty:
+    df_caracteristicas.to_csv("data/processed/atributos_g20gli.csv", index=False)
+    print("\n[SUCESSO] Planilha contruída em data/processed/atributos_g20gli.csv!")
+    print(f"Formato gerado para os modelos: {df_caracteristicas.shape}")
+else:
+    print("\n[ERRO] Nenhum dado foi extraído. Verifica se as imagens estão na pasta data/raw/g20gli_dataset.")
