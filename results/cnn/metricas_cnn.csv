@@ -1,0 +1,2 @@
+modelo,accuracy,precision,recall,f1_score,tn,fp,fn,tp,n_amostras,limiar,tempo_treino_s,tempo_inferencia_ms_por_imagem
+cnn,0.9859154929577465,0.9859154929577465,0.9859154929577465,0.9859154929577465,140,2,2,140,284,0.5,109.09619939999902,0.7361341549319188

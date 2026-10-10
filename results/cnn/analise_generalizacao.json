@@ -1,0 +1,42 @@
+{
+  "metricas_por_conjunto": {
+    "treino": {
+      "accuracy": 0.9781954887218045,
+      "precision": 0.9789156626506024,
+      "recall": 0.9774436090225563,
+      "f1_score": 0.9781790820165538,
+      "log_loss": 0.05967992118480231,
+      "n_amostras": 1330
+    },
+    "validacao": {
+      "accuracy": 0.986013986013986,
+      "precision": 0.9929078014184397,
+      "recall": 0.9790209790209791,
+      "f1_score": 0.9859154929577465,
+      "log_loss": 0.05728181148181348,
+      "n_amostras": 286
+    },
+    "teste": {
+      "accuracy": 0.9859154929577465,
+      "precision": 0.9859154929577465,
+      "recall": 0.9859154929577465,
+      "f1_score": 0.9859154929577465,
+      "log_loss": 0.040630611877079933,
+      "n_amostras": 284
+    }
+  },
+  "lacuna_accuracy_treino_menos_teste": -0.007720004235941991,
+  "lacuna_accuracy_treino_menos_validacao": -0.007818497292181537,
+  "diagnostico": "Lacuna treino-teste pequena: sem sinal relevante de sobreajuste nesta execução.",
+  "limiares_heuristicos": {
+    "lacuna_pequena": 0.03,
+    "lacuna_alta": 0.08,
+    "acc_treino_baixa": 0.8
+  },
+  "historico": {
+    "epocas_executadas": 25,
+    "melhor_epoca_val_loss": 17,
+    "val_loss_minima": 0.06225401908159256,
+    "val_loss_na_ultima_epoca": 0.07343196868896484
+  }
+}

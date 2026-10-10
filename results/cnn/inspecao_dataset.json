@@ -1,0 +1,41 @@
+{
+  "observacao": "Inspeção real do dataset (gerada por script, antes do treino da CNN).",
+  "resumo": {
+    "total_imagens": 1900,
+    "por_classe": {
+      "nofire": 950,
+      "fire": 950
+    },
+    "por_conjunto": {
+      "train": {
+        "fire": 665,
+        "nofire": 665
+      },
+      "val": {
+        "fire": 143,
+        "nofire": 143
+      },
+      "test": {
+        "fire": 142,
+        "nofire": 142
+      }
+    },
+    "grupos_com_duplicatas": 4,
+    "imagens_em_grupos_com_duplicatas": 8
+  },
+  "modos_de_cor": {
+    "RGB": 1900
+  },
+  "dimensoes_originais": {
+    "250x250": 1826,
+    "256x256": 73,
+    "252x252": 1
+  },
+  "semente": 42,
+  "proporcoes_treino_val_teste": [
+    0.7,
+    0.15,
+    0.15
+  ],
+  "limiar_dhash": 4
+}
