@@ -43,7 +43,7 @@ def _importar_tf():
     except ImportError as erro:
         raise ImportError(
             "TensorFlow não está instalado neste ambiente. "
-            "Ative o ambiente virtual e execute: pip install -r requirements-cnn.txt"
+            "Ative o ambiente virtual e execute: pip install -r requirements.txt"
         ) from erro
     return tf, tf.keras
 

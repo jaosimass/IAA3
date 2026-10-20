@@ -1,7 +1,8 @@
 # README - parte CNN (para ser incorporada ao README.md do projeto)
 
-> O `README.md` e o `requirements.txt` da raiz não foram alterados (para evitar conflito com os outros integrantes).
-> Copie esta seção para o README e acrescente `-r requirements-cnn.txt` (ou o conteúdo dele) ao `requirements.txt`.
+> O `README.md` da raiz contém apenas o título do projeto; copie esta seção para ele quando o grupo integrar o README.
+> As dependências da CNN (tensorflow, numpy, pandas, pillow, scikit-learn, matplotlib) constam no `requirements.txt` da raiz;
+> não existe `requirements-cnn.txt`.
 
 ## Deep Learning: CNN fire / nofire
 
@@ -10,7 +11,7 @@
    py -3.12 -m venv .venv
    .venv\Scripts\Activate.ps1
    python -m pip install --upgrade pip
-   pip install -r requirements-cnn.txt
+   pip install -r requirements.txt
    ```
 2. **Preparar os dados:** as imagens devem estar em `data\raw\g20gli_dataset\fire` e `data\raw\g20gli_dataset\nofire`.
    A divisão treino/validação/teste e a checagem de vazamento são feitas automaticamente pelo treino

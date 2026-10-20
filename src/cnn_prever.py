@@ -34,7 +34,7 @@ def carregar_modelo(caminho_modelo: Path | str = MODELO_PADRAO):
     try:
         from tensorflow import keras
     except ImportError as erro:
-        raise ImportError("TensorFlow não está instalado. Execute: pip install -r requirements-cnn.txt") from erro
+        raise ImportError("TensorFlow não está instalado. Execute: pip install -r requirements.txt") from erro
 
     caminho_modelo = Path(caminho_modelo)
     if not caminho_modelo.is_file():
