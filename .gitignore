@@ -1,0 +1,11 @@
+# Ambiente e cache
+.venv/
+__pycache__/
+*.py[cod]
+.env
+
+# Dataset e resultados gerados
+data/*
+!data/.gitkeep
+results/*
+!results/.gitkeep
