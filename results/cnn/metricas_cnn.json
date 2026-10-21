@@ -1,0 +1,52 @@
+{
+  "classe_positiva": "fire",
+  "limiar": 0.5,
+  "n_amostras": 284,
+  "log_loss": 0.040630611877079933,
+  "taxa_falsos_positivos": 0.014084507042253521,
+  "taxa_falsos_negativos": 0.014084507042253521,
+  "especificidade": 0.9859154929577465,
+  "accuracy": 0.9859154929577465,
+  "precision": 0.9859154929577465,
+  "recall": 0.9859154929577465,
+  "f1_score": 0.9859154929577465,
+  "ordem_classes": [
+    "nofire",
+    "fire"
+  ],
+  "matriz_confusao": [
+    [
+      140,
+      2
+    ],
+    [
+      2,
+      140
+    ]
+  ],
+  "tn": 140,
+  "fp": 2,
+  "fn": 2,
+  "tp": 140,
+  "por_classe": {
+    "nofire": {
+      "precision": 0.9859154929577465,
+      "recall": 0.9859154929577465,
+      "f1_score": 0.9859154929577465,
+      "suporte": 142
+    },
+    "fire": {
+      "precision": 0.9859154929577465,
+      "recall": 0.9859154929577465,
+      "f1_score": 0.9859154929577465,
+      "suporte": 142
+    }
+  },
+  "macro": {
+    "precision": 0.9859154929577465,
+    "recall": 0.9859154929577465,
+    "f1_score": 0.9859154929577465
+  },
+  "tempo_treino_s": 109.09619939999902,
+  "tempo_inferencia_ms_por_imagem": 0.7361341549319188
+}

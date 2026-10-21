@@ -1,0 +1,2 @@
+modelo,accuracy,precision,recall,f1_score,tn,fp,fn,tp,n_amostras,limiar
+cnn_validacao,0.986013986013986,0.9929078014184397,0.9790209790209791,0.9859154929577465,142,1,3,140,286,0.5

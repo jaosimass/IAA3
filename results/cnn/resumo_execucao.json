@@ -1,0 +1,58 @@
+{
+  "config": {
+    "modelo": "cnn_fire_nofire",
+    "arquivo_modelo": "cnn_fire_nofire.keras",
+    "tamanho_imagem": 128,
+    "classes": [
+      "nofire",
+      "fire"
+    ],
+    "classe_positiva": "fire",
+    "limiar": 0.5,
+    "normalizacao": "pixel/255 -> [0, 1]",
+    "semente": 42,
+    "batch": 32,
+    "epocas_maximas": 40,
+    "epocas_executadas": 25,
+    "melhor_epoca": 17,
+    "parametros": 102321,
+    "tensorflow": "2.21.0",
+    "proporcoes_treino_val_teste": [
+      0.7,
+      0.15,
+      0.15
+    ],
+    "smoke": false,
+    "aumento_de_dados": true,
+    "tempo_treino_s": 109.09619939999902,
+    "tempo_inferencia_ms_por_imagem": 0.7361341549319188
+  },
+  "dataset": {
+    "total_imagens": 1900,
+    "por_classe": {
+      "nofire": 950,
+      "fire": 950
+    },
+    "por_conjunto": {
+      "train": {
+        "fire": 665,
+        "nofire": 665
+      },
+      "val": {
+        "fire": 143,
+        "nofire": 143
+      },
+      "test": {
+        "fire": 142,
+        "nofire": 142
+      }
+    },
+    "grupos_com_duplicatas": 4,
+    "imagens_em_grupos_com_duplicatas": 8
+  },
+  "verificacao_vazamento": {
+    "arquivos_em_mais_de_um_conjunto": 0,
+    "grupos_divididos_entre_conjuntos": 0,
+    "classes_em_todos_os_conjuntos": true
+  }
+}
