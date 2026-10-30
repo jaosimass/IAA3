@@ -1,4 +1,3 @@
-
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -6,7 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import (
     train_test_split,
     StratifiedKFold,
-    cross_validate
+    GridSearchCV
 )
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
@@ -14,9 +13,7 @@ from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import (
     accuracy_score,
     classification_report,
-    confusion_matrix,
-    make_scorer,
-    f1_score
+    confusion_matrix
 )
 
 # Garantir que a pasta de resultados exista
@@ -34,6 +31,9 @@ colunas_excluir = [
 X = df.drop(columns=colunas_excluir)
 y = df["NIVEL ACIONAMENTO"]
 
+print("\n=== TIPOS DOS ATRIBUTOS ===")
+print(X.dtypes)
+
 # Separar treino e teste
 # O teste fica reservado para a avaliação final.
 X_treino, X_teste, y_treino, y_teste = train_test_split(
@@ -44,54 +44,58 @@ X_treino, X_teste, y_treino, y_teste = train_test_split(
     stratify=y
 )
 
-# Definir a configuração escolhida
-def criar_modelo():
-    return Pipeline([
-        ("preencher", SimpleImputer(strategy="median")),
-        ("arvore", DecisionTreeClassifier(
-            max_depth=6,
-            class_weight="balanced",
-            random_state=42
-        ))
-    ])
 
-# Validacao cruzada somente nos dados de treino
+# Modelo base: os parâmetros serão escolhidos pelos testes
+pipeline = Pipeline([
+    ("preencher", SimpleImputer(strategy="median")),
+    ("arvore", DecisionTreeClassifier(random_state=42))
+])
+
+# Combinações de parâmetros que vamos comparar
+parametros = {
+    "arvore__max_depth": [4, 6, 8, 10, None],
+    "arvore__min_samples_leaf": [1, 5, 10, 20],
+    "arvore__class_weight": [None, "balanced"]
+}
+
+# Validação cruzada estratificada
 cv = StratifiedKFold(
     n_splits=5,
     shuffle=True,
     random_state=42
 )
 
-modelo_cv = criar_modelo()
-
-resultados_cv = cross_validate(
-    modelo_cv,
-    X_treino,
-    y_treino,
+# Escolher a combinação com melhor F1 macro médio
+busca = GridSearchCV(
+    estimator=pipeline,
+    param_grid=parametros,
+    scoring="f1_macro",
     cv=cv,
-    scoring={
-        "acuracia": "accuracy",
-        "f1_macro": make_scorer(
-            f1_score,
-            average="macro",
-            zero_division=0
-        )
-    }
+    n_jobs=-1,
+    refit=True,
+    return_train_score=True
 )
 
-print("\n=== VALIDACAO CRUZADA ===")
+# Executar a busca pelos melhores parâmetros
+print("Testando combinações de parâmetros...")
+busca.fit(X_treino, y_treino)
+
+# Recuperar o melhor modelo, treinado com todos os dados de treino
+modelo = busca.best_estimator_
+
+print("\n=== MELHOR CONFIGURAÇÃO ===")
+print(busca.best_params_)
 print(
-    "Acuracia media:",
-    round(resultados_cv["test_acuracia"].mean(), 4)
-)
-print(
-    "F1 macro medio:",
-    round(resultados_cv["test_f1_macro"].mean(), 4)
+    "Melhor F1 macro médio na validação cruzada:",
+    round(busca.best_score_, 4)
 )
 
-# Treinar o modelo final com todos os dados de treino
-modelo = criar_modelo()
-modelo.fit(X_treino, y_treino)
+# Verificar se há diferença entre treino e validação
+indice = busca.best_index_
+print(
+    "F1 macro no treino (média das divisões):",
+    round(busca.cv_results_["mean_train_score"][indice], 4)
+)
 
 # Avaliar uma unica vez nos dados de teste
 previsoes = modelo.predict(X_teste)
@@ -176,22 +180,31 @@ plt.close()
 # Salvar a visualizacao da arvore
 arvore = modelo.named_steps["arvore"]
 
-plt.figure(figsize=(24, 12))
+
+# Salvar uma visualização simplificada da árvore
+arvore = modelo.named_steps["arvore"]
+
+plt.figure(figsize=(22, 10))
+
 plot_tree(
     arvore,
     feature_names=X.columns,
     class_names=arvore.classes_,
     filled=True,
     rounded=True,
-    fontsize=8
+    fontsize=9,
+    max_depth=3
 )
 
+plt.title("Árvore de Decisão - Primeiros Níveis")
 plt.tight_layout()
+
 plt.savefig(
-    "data/processed/arvore_decisao.png",
+    "data/processed/arvore_decisao_resumida.png",
     dpi=200,
     bbox_inches="tight"
 )
+
 plt.close()
 
 # Importancia dos atributos
