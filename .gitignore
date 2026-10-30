@@ -1,19 +1,11 @@
-﻿# Ambientes virtuais
+# Ambiente e cache
 .venv/
-venv/
-env/
-
-# Cache e arquivos Python
 __pycache__/
 *.py[cod]
-
-# Configurações locais
 .env
-.vscode/
-.idea/
 
-# Sistema operacional
-.DS_Store
-Thumbs.db
-
-.venv/
+# Dataset e resultados gerados
+data/*
+!data/.gitkeep
+results/*
+!results/.gitkeep
